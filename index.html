@@ -14,7 +14,7 @@
             <p>MyLib<a>.</a></p>
         </div>
         <div class="content">
-            <button>+</button>
+            <button id="book_btn">+</button>
             <div class="books">
                 <div class="book">
                     <p>The Hobbit</p>
@@ -28,6 +28,26 @@
             </div>
         </div>
         <div class="footer"></div>
+    </div>
+    <div class="popup" id="popup">
+        <form>
+            <fieldset>
+                <legend>Add a book</legend>
+                <div class="form-inputs">
+                <input type="text" name="title" id="title" required title="book name" placeholder="Title">
+                <input type="text" name="author" id="author" placeholder="Author">
+                <input type="number" name="pages" id="pages" placeholder="Pages">
+                <p>
+                <label for="read">Read</label>
+                <input type="checkbox" name="read" id="read" checked>
+                </p>
+                </div>
+            </fieldset>
+            <div class="form-btns">
+            <button>Add</button>
+            <button>Exit</button>
+            </div>
+        </form>
     </div>
 
     <script src="script.js"></script>
