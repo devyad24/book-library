@@ -65,6 +65,7 @@ body{
 }
 
 .popup{
+    display: none;
     position: fixed;
     top:50%;
     left:50%;
@@ -150,7 +151,7 @@ input[type="checkbox"]:checked::before {
   transform: scale(1);
 }
 
-.form-btns>button{
+.form-btns>button,#exitbtn{
     font-size: 1rem;
     font-weight: 700;
     width: 8em;
@@ -161,11 +162,17 @@ input[type="checkbox"]:checked::before {
 }
 
 .form-btns{
-    display: flex;
-    justify-content: space-between;
+    position:relative;
+}
+
+#exitbtn{
+    position:absolute;
+    bottom: 40px;
+    right: 30px;
 }
 
 .popup-overlay{
+    display: none;
   position: fixed;
   top: 0;
   left: 0;
@@ -175,9 +182,8 @@ input[type="checkbox"]:checked::before {
   z-index: 200;
 }
 
-.popup.closed,.popup-overlay.closed{
-    display: none;
-    z-index: 0;
+.popup.opened,.popup-overlay.opened{
+    display: block;
 }
 
 #book_btn{
