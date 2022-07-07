@@ -8,10 +8,6 @@ function Book(title,author,pages,status){
     }
 }
 
-function addBookToLibrary(){
-    
-}
-
 let myLibrary = [];
 
 const addBookBtn = document.querySelector("#book_btn");
@@ -19,14 +15,17 @@ const popup = document.querySelector("#popup");
 const popupOverlay = document.querySelector("#popup-overlay");
 const exitFormbtn = document.querySelector("#exitbtn");
 
-exitFormbtn.addEventListener("click",function(){
+
+function exitForm(e){
     popup.classList.toggle("opened");
     popupOverlay.classList.toggle("opened");
-    popup.style.zIndex = "-200";
-    popupOverlay.style.zIndex = "-250";
-});
+    popup.style.zindex = "-200";
+    popupOverlay.style.zindex = "-250";
+}
 
-addBookBtn.addEventListener("click",function(){
+exitFormbtn.addEventListener("click",exitForm);
+
+addBookBtn.addEventListener("click",()=>{
     popup.classList.toggle("opened");
     popupOverlay.classList.toggle("opened");
     popup.style.zIndex = "200";
@@ -35,10 +34,18 @@ addBookBtn.addEventListener("click",function(){
 
 
 let submitFormbtn = document.querySelector("#addFormbtn");
-let bookTitle = document.querySelector("#title").value;
-let form = document.querySelector("#myForm").elements[0];
+let bookTitle = document.querySelector("input[name='title']");
+let bookAuthor = document.querySelector("#author");
+let bookPages = document.querySelector("#pages");
+let bookStatus = document.querySelector("#read");
 
-
-submitFormbtn.addEventListener("click",()=>{
-    console.log(bookTitle);
+submitFormbtn.addEventListener("click",(e)=>{
+    e.preventDefault();
+    let newBook = new Book(bookTitle.value,bookAuthor.value,bookPages.value,bookStatus.value);
+    if(newBook.title!=""){
+    myLibrary.push(newBook);
+    } 
+    exitForm();
 })
+
+
