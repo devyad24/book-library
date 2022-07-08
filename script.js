@@ -21,6 +21,7 @@ function exitForm(e){
     popupOverlay.classList.toggle("opened");
     popup.style.zindex = "-200";
     popupOverlay.style.zindex = "-250";
+    displayBooks();
 }
 
 exitFormbtn.addEventListener("click",exitForm);
@@ -38,6 +39,9 @@ let bookTitle = document.querySelector("input[name='title']");
 let bookAuthor = document.querySelector("#author");
 let bookPages = document.querySelector("#pages");
 let bookStatus = document.querySelector("#read");
+let i = 0;
+
+const allBooksDiv = document.querySelector(".books");
 
 submitFormbtn.addEventListener("click",(e)=>{
     e.preventDefault();
@@ -46,6 +50,27 @@ submitFormbtn.addEventListener("click",(e)=>{
     myLibrary.push(newBook);
     } 
     exitForm();
+    i++;
 })
 
 
+function displayBooks(){
+    let bookDiv = document.createElement("div");
+    bookDiv.setAttribute(`data-book${i}`,`book${i}`);
+    bookDiv.classList.add("book");
+    let displayTitle = document.createElement("p");
+    let displayAuthor = document.createElement("p");
+    let displayPages = document.createElement("p");
+    let displayStatus = document.createElement("p");
+    let statusCheckBox = document.createElement("input");
+    statusCheckBox.setAttribute("type","checkbox");
+    displayStatus.append(statusCheckBox);
+    displayTitle.textContent = myLibrary[i].title;
+    displayAuthor.textContent = myLibrary[i].author;
+    displayPages.textContent = myLibrary[i].pages;
+    bookDiv.append(displayTitle);
+    bookDiv.append(displayAuthor);
+    bookDiv.append(displayPages);
+    bookDiv.append(displayStatus);
+    allBooksDiv.append(bookDiv);
+}
