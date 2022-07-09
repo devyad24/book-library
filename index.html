@@ -16,7 +16,7 @@
         <div class="content">
             <button id="book_btn">+</button>
             <div class="books">
-                <div class="book">
+                <!-- <div class="book">
                     <p>The Hobbit</p>
                     <p>J.R.R Martin</p>
                     <p>248 pages</p>
@@ -24,7 +24,7 @@
                     <label for="read">Read</label>
                     <input type="checkbox" name="read" id="read">
                     </p>
-                </div>
+                </div> -->
             </div>
         </div>
         <div class="footer"></div>
@@ -35,11 +35,11 @@
                 <legend>Add a book</legend>
                 <div class="form-inputs">
                 <input type="text" name="title" id="title" required title="book name" placeholder="Title">
-                <input type="text" name="author" id="author" placeholder="Author">
-                <input type="number" name="pages" id="pages" placeholder="Pages">
+                <input type="text" name="author" id="author" placeholder="Author" required>
+                <input type="number" name="pages" id="pages" placeholder="Pages" required>
                 <p>
                 <label for="read">Read</label>
-                <input type="checkbox" name="read" id="read" checked>
+                <input type="checkbox" name="read" id="read">
                 </p>
                 </div>
             </fieldset>

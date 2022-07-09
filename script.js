@@ -39,6 +39,7 @@ let bookTitle = document.querySelector("input[name='title']");
 let bookAuthor = document.querySelector("#author");
 let bookPages = document.querySelector("#pages");
 let bookStatus = document.querySelector("#read");
+let myForm = document.querySelector("#myForm");
 let i = 0;
 
 const allBooksDiv = document.querySelector(".books");
@@ -51,6 +52,7 @@ submitFormbtn.addEventListener("click",(e)=>{
     } 
     exitForm();
     i++;
+    myForm.reset();
 })
 
 
@@ -62,8 +64,14 @@ function displayBooks(){
     let displayAuthor = document.createElement("p");
     let displayPages = document.createElement("p");
     let displayStatus = document.createElement("p");
+    let statusLabel = document.createElement("label");
     let statusCheckBox = document.createElement("input");
+    statusLabel.setAttribute("for","readStatus");
+    statusLabel.textContent = "Read";
     statusCheckBox.setAttribute("type","checkbox");
+    statusCheckBox.setAttribute("id","readStatus");
+    bookStatus.checked ? statusCheckBox.checked = true : statusCheckBox.checked = false;
+    displayStatus.append(statusLabel);
     displayStatus.append(statusCheckBox);
     displayTitle.textContent = myLibrary[i].title;
     displayAuthor.textContent = myLibrary[i].author;
