@@ -55,7 +55,9 @@ body{
 }
 
 .book{
-    width: 300px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    width: 260px;
     height: 35vh;
     border: 1px solid #03045e;
     border-radius: 10px;
@@ -67,7 +69,9 @@ body{
 }
 
 .book>p{
+    width: 100%;
     display: flex;
+    flex-direction: column;
     align-items: center;
     gap: 5px;
 }
@@ -108,7 +112,7 @@ fieldset{
     gap: 1.5rem;
 }
 
-input:not([type="checkbox"]){
+input{
     outline: none !important;
     height: 4vh;
     border: 2px solid #1F2041;
@@ -129,7 +133,7 @@ legend{
     gap: 4px;
 }
 
-input[type="checkbox"]{
+/* input[type="checkbox"]{
     -webkit-appearance: none;
     appearance: none;
     background-color: #fff;
@@ -143,8 +147,8 @@ input[type="checkbox"]{
   transform: translateY(-0.075em);
   display: grid;
   place-content: center;
-}
-
+} */
+/* 
 input[type="checkbox"]::before {
   content: "";
   width: 0.65em;
@@ -158,8 +162,22 @@ input[type="checkbox"]::before {
 
 input[type="checkbox"]:checked::before {
   transform: scale(1);
+} */
+
+select,.remove{
+    width: 40%;
+    outline: none !important;
+    text-align: center;
+    border: 2px solid #16425B;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
 }
 
+.remove:hover{
+    background-color: #03045e;
+    color: #f1faee;
+}
 .form-btns>button,#exitbtn{
     font-size: 1rem;
     font-weight: 700;
