@@ -24,6 +24,10 @@ function exitForm(e){
     let books = document.querySelectorAll(`div[data-book]`);
     books.forEach( b => b.remove());
     displayBooks();
+    readBooks = 0;
+    wishlistBooks = 0;
+    shelfBooks = 0;
+    displayBookStats();
 }
 
 exitFormbtn.addEventListener("click",exitForm);
@@ -100,19 +104,43 @@ myLibrary.forEach(book =>{
     displayTitle.textContent = book.title;
     displayAuthor.textContent = book.author;
     displayPages.textContent = book.pages;
-    if(book.status==='addToShelf'){
-        optionShelf.setAttribute("selected","selected");
+    if(book.status==='read'){
+        optionRead.setAttribute("selected","selected");
     }
     else if(book.status==='wantToRead'){
         optionWantTo.setAttribute("selected","selected");
     }
     else{
-        optionRead.setAttribute("selected","selected");
+        optionShelf.setAttribute("selected","selected");
     }
     bookDiv.append(displayTitle);
     bookDiv.append(displayAuthor);
     bookDiv.append(displayPages);
     bookDiv.append(displayStatus);
     allBooksDiv.append(bookDiv);
+})
+}
+
+let statusRead = document.querySelector("#stat_read");
+let statusWishlist = document.querySelector("#stat_wishlist");
+let statusShelf = document.querySelector("#stat_shelf");
+let readBooks = 0;
+let wishlistBooks = 0;
+let shelfBooks = 0;
+
+function displayBookStats(){
+myLibrary.forEach((book) =>{
+    if(book.status==="read"){
+        readBooks++;
+        statusRead.textContent = readBooks;
+    }
+    else if(book.status==="wantToRead"){
+        wishlistBooks++;
+        statusWishlist.textContent = wishlistBooks; 
+    }
+    else{
+        shelfBooks++;
+        statusShelf.textContent = shelfBooks; 
+    }
 })
 }
