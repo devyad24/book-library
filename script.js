@@ -14,7 +14,9 @@ const addBookBtn = document.querySelector("#book_btn");
 const popup = document.querySelector("#popup");
 const popupOverlay = document.querySelector("#popup-overlay");
 const exitFormbtn = document.querySelector("#exitbtn");
-
+let readBooks = 0;
+let wishlistBooks = 0;
+let shelfBooks = 0;
 
 function exitForm(e){
     popup.classList.toggle("opened");
@@ -24,10 +26,6 @@ function exitForm(e){
     let books = document.querySelectorAll(`div[data-book]`);
     books.forEach( b => b.remove());
     displayBooks();
-    readBooks = 0;
-    wishlistBooks = 0;
-    shelfBooks = 0;
-    displayBookStats();
 }
 
 exitFormbtn.addEventListener("click",exitForm);
@@ -59,6 +57,19 @@ submitFormbtn.addEventListener("click",(e)=>{
     } 
     exitForm();
     myForm.reset();
+
+    if(newBook.status==="read"){
+        readBooks++;
+        statusRead.textContent = readBooks;
+    }
+    else if(newBook.status==="wantToRead"){
+        wishlistBooks++;
+        statusWishlist.textContent = wishlistBooks; 
+    }
+    else{
+        shelfBooks++;
+        statusShelf.textContent = shelfBooks; 
+    }
 })
 
 function displayBooks(){
@@ -82,12 +93,19 @@ myLibrary.forEach(book =>{
     removeBook.addEventListener('click',(e)=>{
         let removeAttributeNum = e.target; 
         let deletedBook = removeAttributeNum.parentNode.parentNode; 
-        // let deletedBookIndex = parseInt(deletedBook.getAttribute("data-book"));
-        // if(myLibrary.indexOf(book)===0) myLibrary.shift();
-        // else if(myLibrary.indexOf(book)===myLibrary.length-1) myLibrary.pop();
-        // else{
         myLibrary.splice(myLibrary.indexOf(book),1);
-        // }
+        if(removeAttributeNum.parentNode.firstChild.value==="read"){
+            readBooks--;
+            statusRead.textContent = readBooks;
+        }
+        else if(removeAttributeNum.parentNode.firstChild.value==="wantToRead"){
+            wishlistBooks--;
+            statusWishlist.textContent = wishlistBooks;
+        }
+        else if(removeAttributeNum.parentNode.firstChild.value==="addToShelf"){
+            shelfBooks--;
+            statusShelf.textContent = shelfBooks;
+        }
         deletedBook.remove();
     })
     optionRead.value = "read";
@@ -124,23 +142,3 @@ myLibrary.forEach(book =>{
 let statusRead = document.querySelector("#stat_read");
 let statusWishlist = document.querySelector("#stat_wishlist");
 let statusShelf = document.querySelector("#stat_shelf");
-let readBooks = 0;
-let wishlistBooks = 0;
-let shelfBooks = 0;
-
-function displayBookStats(){
-myLibrary.forEach((book) =>{
-    if(book.status==="read"){
-        readBooks++;
-        statusRead.textContent = readBooks;
-    }
-    else if(book.status==="wantToRead"){
-        wishlistBooks++;
-        statusWishlist.textContent = wishlistBooks; 
-    }
-    else{
-        shelfBooks++;
-        statusShelf.textContent = shelfBooks; 
-    }
-})
-}
