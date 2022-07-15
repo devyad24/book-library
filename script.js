@@ -21,6 +21,8 @@ function exitForm(e){
     popupOverlay.classList.toggle("opened");
     popup.style.zindex = "-200";
     popupOverlay.style.zindex = "-250";
+    let books = document.querySelectorAll(`div[data-book]`);
+    books.forEach( b => b.remove());
     displayBooks();
 }
 
@@ -35,29 +37,30 @@ addBookBtn.addEventListener("click",()=>{
 
 let submitFormbtn = document.querySelector("#addFormbtn");
 let bookTitle = document.querySelector("input[name='title']");
+bookTitle.required = true;
 let bookAuthor = document.querySelector("#author");
+bookAuthor.required = true;
 let bookPages = document.querySelector("#pages");
+bookPages.required = true;
 let bookStatus = document.querySelector("#read");
 let myForm = document.querySelector("#myForm");
-let i = 0;
 
 const allBooksDiv = document.querySelector(".books");
 
 submitFormbtn.addEventListener("click",(e)=>{
     e.preventDefault();
     let newBook = new Book(bookTitle.value,bookAuthor.value,bookPages.value,bookStatus.value);
-    if(newBook.title!=""){
+    if(bookTitle.value!==""){
     myLibrary.push(newBook);
     } 
     exitForm();
-    i++;
     myForm.reset();
 })
 
-
 function displayBooks(){
+myLibrary.forEach(book =>{
     let bookDiv = document.createElement("div");
-    bookDiv.setAttribute(`data-book`,`${i}`);
+    bookDiv.setAttribute(`data-book`,`${myLibrary.indexOf(this)}`);
     bookDiv.classList.add("book");
     let displayTitle = document.createElement("p");
     let displayAuthor = document.createElement("p");
@@ -70,16 +73,18 @@ function displayBooks(){
     let optionWantTo = document.createElement("option");
     let optionShelf = document.createElement("option");
     let removeBook = document.createElement("button");
-    removeBook.setAttribute("data-remove",`${i}`);
     removeBook.textContent = "Remove";
     removeBook.classList.add("remove");
     removeBook.addEventListener('click',(e)=>{
-        let removeAttributeNum = e.target.getAttribute("data-remove");
-        let deletedBook = document.querySelector(`div[data-book = "${removeAttributeNum}"]`);
+        let removeAttributeNum = e.target; 
+        let deletedBook = removeAttributeNum.parentNode.parentNode; 
+        // let deletedBookIndex = parseInt(deletedBook.getAttribute("data-book"));
+        // if(myLibrary.indexOf(book)===0) myLibrary.shift();
+        // else if(myLibrary.indexOf(book)===myLibrary.length-1) myLibrary.pop();
+        // else{
+        myLibrary.splice(myLibrary.indexOf(book),1);
+        // }
         deletedBook.remove();
-        myLibrary.splice(parseInt(removeAttributeNum),1);
-        i--;
-
     })
     optionRead.value = "read";
     optionRead.textContent = "Read";
@@ -92,13 +97,13 @@ function displayBooks(){
     statusSelect.append(optionShelf);
     displayStatus.append(statusSelect);
     displayStatus.append(removeBook);
-    displayTitle.textContent = myLibrary[i].title;
-    displayAuthor.textContent = myLibrary[i].author;
-    displayPages.textContent = myLibrary[i].pages;
-    if(myLibrary[i].status==='addToShelf'){
+    displayTitle.textContent = book.title;
+    displayAuthor.textContent = book.author;
+    displayPages.textContent = book.pages;
+    if(book.status==='addToShelf'){
         optionShelf.setAttribute("selected","selected");
     }
-    else if(myLibrary[i].status==='wantToRead'){
+    else if(book.status==='wantToRead'){
         optionWantTo.setAttribute("selected","selected");
     }
     else{
@@ -109,4 +114,5 @@ function displayBooks(){
     bookDiv.append(displayPages);
     bookDiv.append(displayStatus);
     allBooksDiv.append(bookDiv);
+})
 }
