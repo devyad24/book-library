@@ -3,9 +3,6 @@ function Book(title, author, pages, status) {
     this.author = author
     this.pages = pages
     this.status = status
-    this.info = () => {
-        return `${title} by ${author}, ${pages} pages, ${status}`;
-    }
 }
 
 let myLibrary = [];
@@ -26,11 +23,11 @@ function exitForm(e) {
     let books = document.querySelectorAll(`div[data-book]`);
     books.forEach(b => b.remove());
     displayBooks();
-    // allSelectElements = document.querySelectorAll('[data-selector="yes"]');
 }
 
 exitFormbtn.addEventListener("click", exitForm);
 
+const form = document.querySelector("#myForm");
 let submitFormbtn = document.querySelector("#addFormbtn");
 let bookTitle = document.querySelector('#title');
 let bookAuthor = document.querySelector("#author");
@@ -49,11 +46,10 @@ addBookBtn.addEventListener("click", () => {
 
 const allBooksDiv = document.querySelector(".books");
 
-submitFormbtn.addEventListener("click", (e) => {
+form.addEventListener("submit", (e) => {
     e.preventDefault();
     bookTitle.required = true;
     let newBook = new Book(bookTitle.value, bookAuthor.value, bookPages.value, bookStatus.value);
-    if (bookTitle.value !== "" && bookAuthor.value !== "" && bookPages.value !== "") {
         myLibrary.push(newBook);
         if (newBook.status === "read") {
             readBooks++;
@@ -67,7 +63,6 @@ submitFormbtn.addEventListener("click", (e) => {
             shelfBooks++;
             statusShelf.textContent = shelfBooks;
         }
-    }
     exitForm();
     myForm.reset();
 
@@ -187,14 +182,3 @@ function displayBooks() {
 let statusRead = document.querySelector("#stat_read");
 let statusWishlist = document.querySelector("#stat_wishlist");
 let statusShelf = document.querySelector("#stat_shelf");
-
-// let allSelectElements;
-
-// function manipBookStats() {
-//     if (allSelectElements !== undefined) {
-
-//         allSelectElements.forEach(currentSelect => {
-//             currentSelect.addEventListener('change', manageBookStats)
-//         })
-//     }
-// }
