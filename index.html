@@ -39,9 +39,9 @@
             <fieldset>
                 <legend>Add a book</legend>
                 <div class="form-inputs">
-                <input type="text" name="title" id="title" required title="book name" placeholder="Title">
-                <input type="text" name="author" id="author" placeholder="Author" required>
-                <input type="number" name="pages" id="pages" placeholder="Pages" required>
+                <input type="text" name="title" id="title" required="required" title="book name" placeholder="Title">
+                <input type="text" name="author" id="author" placeholder="Author" required="required">
+                <input type="number" name="pages" id="pages" placeholder="Pages" required="required">
                 <p>
                 <select name="bookStatus" id="read">
                     <option value="read">Read</option>
@@ -51,9 +51,7 @@
                 </p>
                 </div>
             </fieldset>
-            <div class="form-btns">
             <button id="addFormbtn" type="submit">Add</button>
-            </div>
         </form>
             <button id="exitbtn" type="button">Exit</button>
     </div>
