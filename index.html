@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="style.css">
     <title>Library</title>
 </head>
+
 <body>
 
     <div class="main-container">
@@ -32,32 +34,33 @@
                 </div> -->
             </div>
         </div>
-        <div class="footer"></div>
     </div>
     <div class="popup" id="popup">
         <form id="myForm">
             <fieldset>
                 <legend>Add a book</legend>
                 <div class="form-inputs">
-                <input type="text" name="title" id="title" required="required" title="book name" placeholder="Title">
-                <input type="text" name="author" id="author" placeholder="Author" required="required">
-                <input type="number" name="pages" id="pages" placeholder="Pages" required="required">
-                <p>
-                <select name="bookStatus" id="read">
-                    <option value="read">Read</option>
-                    <option value="wantToRead">Want to read</option>
-                    <option value="addToShelf">Add to shelf</option>
-                </select>
-                </p>
+                    <input type="text" name="title" id="title" required title="book name"
+                        placeholder="Title">
+                    <input type="text" name="author" id="author" placeholder="Author" required>
+                    <input type="number" name="pages" id="pages" placeholder="Pages" required>
+                    <p>
+                        <select name="bookStatus" id="read">
+                            <option value="read">Read</option>
+                            <option value="wantToRead">Want to read</option>
+                            <option value="addToShelf">Add to shelf</option>
+                        </select>
+                    </p>
                 </div>
             </fieldset>
             <button id="addFormbtn" type="submit">Add</button>
         </form>
-            <button id="exitbtn" type="button">Exit</button>
+        <button id="exitbtn" type="button">Exit</button>
     </div>
     <div class="popup-overlay" id="popup-overlay">
     </div>
 
     <script src="script.js"></script>
 </body>
+
 </html>

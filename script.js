@@ -31,46 +31,46 @@ function exitForm(e) {
 
 exitFormbtn.addEventListener("click", exitForm);
 
+let submitFormbtn = document.querySelector("#addFormbtn");
+let bookTitle = document.querySelector('#title');
+let bookAuthor = document.querySelector("#author");
+let bookPages = document.querySelector("#pages");
+let bookStatus = document.querySelector("#read");
+let myForm = document.querySelector("#myForm");
+
 addBookBtn.addEventListener("click", () => {
+    document.getElementById("title").focus();
     popup.classList.toggle("opened");
     popupOverlay.classList.toggle("opened");
     popup.style.zIndex = "200";
     popupOverlay.style.zIndex = "150";
 });
 
-let submitFormbtn = document.querySelector("#addFormbtn");
-let bookTitle = document.querySelector("input[name='title']");
-bookTitle.required = true;
-let bookAuthor = document.querySelector("#author");
-bookAuthor.required = true;
-let bookPages = document.querySelector("#pages");
-bookPages.required = true;
-let bookStatus = document.querySelector("#read");
-let myForm = document.querySelector("#myForm");
 
 const allBooksDiv = document.querySelector(".books");
 
 submitFormbtn.addEventListener("click", (e) => {
     e.preventDefault();
+    bookTitle.required = true;
     let newBook = new Book(bookTitle.value, bookAuthor.value, bookPages.value, bookStatus.value);
-    if (bookTitle.value !== "") {
+    if (bookTitle.value !== "" && bookAuthor.value !== "" && bookPages.value !== "") {
         myLibrary.push(newBook);
+        if (newBook.status === "read") {
+            readBooks++;
+            statusRead.textContent = readBooks;
+        }
+        else if (newBook.status === "wantToRead") {
+            wishlistBooks++;
+            statusWishlist.textContent = wishlistBooks;
+        }
+        else {
+            shelfBooks++;
+            statusShelf.textContent = shelfBooks;
+        }
     }
     exitForm();
     myForm.reset();
 
-    if (newBook.status === "read") {
-        readBooks++;
-        statusRead.textContent = readBooks;
-    }
-    else if (newBook.status === "wantToRead") {
-        wishlistBooks++;
-        statusWishlist.textContent = wishlistBooks;
-    }
-    else {
-        shelfBooks++;
-        statusShelf.textContent = shelfBooks;
-    }
 })
 
 let previousSelectVal = "";
@@ -139,8 +139,48 @@ function displayBooks() {
         bookDiv.append(displayPages);
         bookDiv.append(displayStatus);
         allBooksDiv.append(bookDiv);
-        statusSelect.addEventListener('focus',e => previousSelectVal = e.target.value);
-        statusSelect.addEventListener('change',manageBookStats);
+        statusSelect.addEventListener('focus', e => previousSelectVal = e.target.value);
+        statusSelect.addEventListener('change', manageBookStats);
+        function manageBookStats(e) {
+            if (e.target.value === "read" && previousSelectVal === "wantToRead") {
+                readBooks++;
+                wishlistBooks--;
+                statusRead.textContent = readBooks;
+                statusWishlist.textContent = wishlistBooks;
+            }
+            else if (e.target.value === "wantToRead" && previousSelectVal === "read") {
+                readBooks--;
+                wishlistBooks++;
+                statusRead.textContent = readBooks;
+                statusWishlist.textContent = wishlistBooks;
+            }
+            else if (e.target.value === "addToShelf" && previousSelectVal === "read") {
+                readBooks--;
+                shelfBooks++;
+                statusShelf.textContent = shelfBooks;
+                statusRead.textContent = readBooks;
+            }
+            else if (e.target.value === "read" && previousSelectVal === "addToShelf") {
+                readBooks++;
+                shelfBooks--;
+                statusRead.textContent = readBooks;
+                statusShelf.textContent = shelfBooks;
+            }
+            else if (e.target.value === "wantToRead" && previousSelectVal === "addToShelf") {
+                wishlistBooks++;
+                shelfBooks--;
+                statusWishlist.textContent = wishlistBooks;
+                statusShelf.textContent = shelfBooks;
+            }
+            else if (e.target.value === "addToShelf" && previousSelectVal === "wantToRead") {
+                shelfBooks++;
+                wishlistBooks--;
+                statusShelf.textContent = shelfBooks;
+                statusWishlist.textContent = wishlistBooks;
+            }
+            previousSelectVal = e.target.value;
+            book.status = previousSelectVal;
+        }
     })
 }
 
@@ -158,42 +198,3 @@ let statusShelf = document.querySelector("#stat_shelf");
 //         })
 //     }
 // }
-function manageBookStats(e) {
-    if (e.target.value === "read" && previousSelectVal === "wantToRead") {
-        readBooks++;
-        wishlistBooks--;
-        statusRead.textContent = readBooks;
-        statusWishlist.textContent = wishlistBooks;
-    }
-    else if (e.target.value === "wantToRead" && previousSelectVal === "read") {
-        readBooks--;
-        wishlistBooks++;
-        statusRead.textContent = readBooks;
-        statusWishlist.textContent = wishlistBooks;
-    }
-    else if (e.target.value === "addToShelf" && previousSelectVal === "read") {
-        readBooks--;
-        shelfBooks++;
-        statusShelf.textContent = shelfBooks;
-        statusRead.textContent = readBooks;
-    }
-    else if (e.target.value === "read" && previousSelectVal === "addToShelf") {
-        readBooks++;
-        shelfBooks--;
-        statusRead.textContent = readBooks;
-        statusShelf.textContent = shelfBooks;
-    }
-    else if (e.target.value === "wantToRead" && previousSelectVal === "addToShelf") {
-        wishlistBooks++;
-        shelfBooks--;
-        statusWishlist.textContent = wishlistBooks;
-        statusShelf.textContent = shelfBooks;
-    }
-    else if (e.target.value === "addToShelf" && previousSelectVal === "wantToRead") {
-        shelfBooks++;
-        wishlistBooks--;
-        statusShelf.textContent = shelfBooks;
-        statusWishlist.textContent = wishlistBooks;
-    }
-    previousSelectVal = e.target.value;
-}
