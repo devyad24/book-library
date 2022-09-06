@@ -1,8 +1,26 @@
-function Book(title, author, pages, status) {
-    this.title = title
-    this.author = author
-    this.pages = pages
-    this.status = status
+class Book {
+    constructor(title,author,pages,status){
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.status = status;
+    }
+
+    get getTitle() {
+        return `${this.title}`;
+    }
+
+    get getAuthor() {
+        return `${this.author}`;
+    }
+
+    get getPages(){
+        return `${this.pages}`;
+    }
+
+    get getStatus(){
+        return `${this.status}`;
+    }
 }
 
 let myLibrary = [];
@@ -51,11 +69,11 @@ form.addEventListener("submit", (e) => {
     bookTitle.required = true;
     let newBook = new Book(bookTitle.value, bookAuthor.value, bookPages.value, bookStatus.value);
         myLibrary.push(newBook);
-        if (newBook.status === "read") {
+        if (newBook.getStatus === "read") {
             readBooks++;
             statusRead.textContent = readBooks;
         }
-        else if (newBook.status === "wantToRead") {
+        else if (newBook.getStatus === "wantToRead") {
             wishlistBooks++;
             statusWishlist.textContent = wishlistBooks;
         }
@@ -117,13 +135,13 @@ function displayBooks() {
         statusSelect.append(optionShelf);
         displayStatus.append(statusSelect);
         displayStatus.append(removeBook);
-        displayTitle.textContent = book.title;
-        displayAuthor.textContent = book.author;
-        displayPages.textContent = book.pages;
-        if (book.status === 'read') {
+        displayTitle.textContent = book.getTitle;
+        displayAuthor.textContent = book.getAuthor;
+        displayPages.textContent = book.getPages;
+        if (book.getStatus === 'read') {
             optionRead.setAttribute("selected", "selected");
         }
-        else if (book.status === 'wantToRead') {
+        else if (book.getStatus === 'wantToRead') {
             optionWantTo.setAttribute("selected", "selected");
         }
         else {
